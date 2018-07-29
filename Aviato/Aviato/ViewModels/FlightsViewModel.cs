@@ -3,13 +3,7 @@ using Aviato.Services;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -123,8 +117,6 @@ namespace Aviato.ViewModels
         async Task LoadFlights()
         {
             Flights = new ObservableCollection<Flight>();
-            //Flights.Add(new Flight() { Id = 1, Number = 1111, PointOfDeparture = "Lviv", DepartureTime = DateTime.Now, Destination = "London", DestinationTime = DateTime.Now });
-            //Flights.Add(new Flight() { Id = 1, Number = 1111, PointOfDeparture = "Lviv", DepartureTime = DateTime.Now, Destination = "London", DestinationTime = DateTime.Now });
             foreach (var flight in await _flightService.GetAll())
             {
                 Flights.Add(flight);

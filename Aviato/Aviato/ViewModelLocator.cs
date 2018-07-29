@@ -4,11 +4,6 @@ using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aviato
 {
@@ -32,6 +27,13 @@ namespace Aviato
 
             SimpleIoc.Default.Register<INavigationService>(() => navigationService);
             SimpleIoc.Default.Register<FlightsViewModel>();
+            SimpleIoc.Default.Register<TicketsViewModel>();
+            SimpleIoc.Default.Register<DeparturesViewModel>();
+            SimpleIoc.Default.Register<StewardessViewModel>();
+            SimpleIoc.Default.Register<PilotsViewModel>();
+            SimpleIoc.Default.Register<CrewsViewModel>();
+            SimpleIoc.Default.Register<PlanesViewModel>();
+            SimpleIoc.Default.Register<PlaneTypesViewModel>();
 
         }
 
@@ -41,6 +43,55 @@ namespace Aviato
             get
             {
                 return ServiceLocator.Current.GetInstance<FlightsViewModel>();
+            }
+        }
+        public TicketsViewModel TicketsVMInstance
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<TicketsViewModel>();
+            }
+        }
+        public DeparturesViewModel DeparturesVMInstance
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<DeparturesViewModel>();
+            }
+        }
+        public StewardessViewModel StewardessesVMInstance
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<StewardessViewModel>();
+            }
+        }
+        public PilotsViewModel PilotsVMInstance
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PilotsViewModel>();
+            }
+        }
+        public CrewsViewModel CrewsVMInstance
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<CrewsViewModel>();
+            }
+        }
+        public PlanesViewModel PlanesVMInstance
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PlanesViewModel>();
+            }
+        }
+        public PlaneTypesViewModel PlaneTypesVMInstance
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<PlaneTypesViewModel>();
             }
         }
 
