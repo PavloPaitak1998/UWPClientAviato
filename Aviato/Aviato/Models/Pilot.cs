@@ -13,6 +13,6 @@ namespace Aviato.Models
         public string LastName { get; set; }
         public int CrewId { get; set; }
         public DateTime BirthDate { get; set; }
-        public int? Experience { get; set; }
+        public int Experience { get; set; }
     }
 }

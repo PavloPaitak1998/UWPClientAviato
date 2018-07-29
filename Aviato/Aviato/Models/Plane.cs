@@ -12,6 +12,6 @@ namespace Aviato.Models
         public string Name { get; set; }
         public int PlaneTypeId { get; set; }
         public DateTime ReleaseDate { get; set; }
-        public TimeSpan Lifetime { get; set; }
+        public string Lifetime { get; set; }
     }
 }
