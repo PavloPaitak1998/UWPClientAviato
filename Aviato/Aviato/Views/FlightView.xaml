@@ -1,0 +1,214 @@
+﻿<Page
+    x:Class="Aviato.Views.FlightView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Aviato.Views"
+    xmlns:converter="using:Aviato.Converters" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding FlightsVMInstance, Source={StaticResource Locator}}">
+    <Page.Resources>
+        <converter:DateFormatConverter x:Name="DateToStringConverter"/>
+    </Page.Resources>
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+         x:Name="MainGrid">
+        <Grid HorizontalAlignment="Right" Height="504" Margin="0,110,63,0" VerticalAlignment="Top" Width="680"
+            DataContext="{Binding Path=Flight,Mode=TwoWay}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="96*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="101*"/>
+                <ColumnDefinition Width="109*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock TextWrapping="Wrap" Text="Flight Id" FontFamily="Segor UI" FontSize="25" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="1" TextWrapping="Wrap" Text="Flight Number" FontFamily="Segoe UI" FontSize="25" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="2" TextWrapping="Wrap" Text="Point of Departure" FontFamily="Segoe UI" FontSize="25" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="4" TextWrapping="Wrap" Text="Point of Destination" FontFamily="Segoe UI" FontSize="25" Margin="0,0,0,1" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="Departure Time" FontFamily="Segoe UI" FontSize="25" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="5" TextWrapping="Wrap" Text="Destination Time" FontFamily="Segoe UI" FontSize="25" VerticalAlignment="Center"/>
+
+            <TextBox 
+                x:Name="txtordid" 
+                Grid.Column="1"
+                TextWrapping="Wrap"
+                Height="45"
+                FontSize="25" 
+                IsEnabled="False"
+                Text="{Binding  Path=Id}"
+                Width="300"/>
+
+            <TextBox
+                x:Name="txtcustname" 
+                Grid.Column="1" 
+                Grid.Row="1"
+                TextWrapping="Wrap" 
+                Height="45"
+                FontSize="25"
+                Text="{Binding Number,Mode=TwoWay}" 
+                Width="300"/>
+
+            <TextBox 
+                x:Name="txtorditem" 
+                Grid.Column="1" 
+                Grid.Row="2" 
+                TextWrapping="Wrap" 
+                Height="45"
+                FontSize="25"
+                Text="{Binding PointOfDeparture,Mode=TwoWay}" 
+                Width="300"/>
+
+            <TextBox 
+                x:Name="txtortqty"
+                Grid.Column="1" 
+                Grid.Row="3" 
+                TextWrapping="Wrap"
+                Height="45"
+                FontSize="25" 
+                Text="{Binding DepartureTime,Mode=TwoWay,
+                Converter={StaticResource DateToStringConverter}}" 
+                Width="300"/>
+
+            <TextBox 
+                x:Name="txtunitprice"
+                Grid.Column="1" 
+                Grid.Row="4" 
+                TextWrapping="Wrap" 
+                Height="45"
+                FontSize="25" 
+                Text="{Binding Destination,Mode=TwoWay}"
+                Width="300"/>
+
+            <TextBox 
+                x:Name="txtutotalbill" 
+                Grid.Column="1" Grid.Row="5" 
+                TextWrapping="Wrap" Height="45"
+                FontSize="25" 
+                Text="{Binding  DestinationTime, Mode=TwoWay,
+                Converter={StaticResource DateToStringConverter}}" 
+                Width="300"/>
+
+        </Grid>
+        <ListView ItemsSource="{Binding Flights}" SelectedItem="{Binding SelectedFlight, Mode=TwoWay}"
+                  HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="587">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="{Binding Number}"
+                                   Foreground="Black"
+                                   FontSize="25"
+                                   Padding="20,0,0,0"
+                                   Grid.Column="1"
+                                   Grid.Row="0"/>
+
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Column="1"
+                                    Grid.Row="1">
+                            <TextBlock Text="{Binding DestinationTime}"
+                                   Foreground="#444444"
+                                   FontSize="15"
+                                   Padding="20,0,0,0"/>
+                            <TextBlock Text="From:"
+                                   Foreground="#888888"
+                                   FontSize="15"
+                                   Padding="20,0,0,0"/>
+                            <TextBlock Text="{Binding Destination}"
+                                   Foreground="#444444"
+                                   FontSize="15"
+                                   Padding="6,0,0,0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Column="1"
+                                    Grid.Row="2">
+                            <TextBlock Text="{Binding DepartureTime}"
+                                   Foreground="#444444"
+                                   FontSize="15"
+                                   Padding="20,0,0,0"/>
+                            <TextBlock Text="To:"
+                                   Foreground="#888888"
+                                   FontSize="15"
+                                   Padding="20,0,0,0"/>
+                            <TextBlock Text="{Binding PointOfDeparture}"
+                                   Foreground="#444444"
+                                   FontSize="15"
+                                   Padding="6,0,0,0"/>
+                        </StackPanel>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel HorizontalAlignment="Right" Height="70" VerticalAlignment="Top" 
+   Width="749" Orientation="Horizontal" Margin="0,0,63,0">
+
+            <Button 
+                Name="btnnew" 
+                Content="New" 
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch" 
+                Width="180"
+                FontSize="25"
+                Command="{Binding Path=NewFlight}"
+                CommandParameter="{Binding Flight}"/>
+
+            <Button 
+                Name="btnadd" 
+                Content="Add"
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch" 
+                Width="180"
+                FontSize="25"
+                Command="{Binding Path=AddFlight}"
+                CommandParameter="{Binding Flight}"/>
+
+            <Button
+                Name="btnupdate" 
+                Content="Update" 
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Width="180"
+                FontSize="25" 
+                Command="{Binding UpdateFlight}" 
+                CommandParameter="{Binding Flight}"/>
+
+            <Button 
+                Name="btndelete" 
+                Content="Delete" 
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" 
+                Width="180"
+                FontSize="25"
+                Command="{Binding DeleteFlight}"
+                CommandParameter="{Binding Flight}"/>
+
+        </StackPanel>
+        <TextBlock 
+            HorizontalAlignment="Left"
+            Height="46" Margin="145,15,0,0"
+            TextWrapping="Wrap"
+            Text="List of Flights" 
+            VerticalAlignment="Top" 
+            Width="395" 
+            FontFamily="Segoe UI"
+            FontSize="30"/>
+    </Grid>
+</Page>

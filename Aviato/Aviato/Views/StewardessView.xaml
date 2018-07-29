@@ -1,0 +1,190 @@
+﻿<Page
+    x:Class="Aviato.Views.StewardessView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Aviato.Views"
+    xmlns:converter="using:Aviato.Converters" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding StewardessesVMInstance, Source={StaticResource Locator}}">
+    <Page.Resources>
+        <converter:DateFormatConverter x:Name="DateToStringConverter"/>
+    </Page.Resources>
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+         x:Name="MainGrid">
+        <Grid HorizontalAlignment="Right" Height="504" Margin="0,110,63,0" VerticalAlignment="Top" Width="680"
+            DataContext="{Binding Path=Stewardess,Mode=TwoWay}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="96*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="101*"/>
+                <ColumnDefinition Width="109*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock TextWrapping="Wrap" Text="Stewardess Id" FontFamily="Segor UI" FontSize="25" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="1" TextWrapping="Wrap" Text="First Name" FontFamily="Segoe UI" FontSize="25" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="2" TextWrapping="Wrap" Text="Last Name" FontFamily="Segoe UI" FontSize="25" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="Birth Date" FontFamily="Segoe UI" FontSize="25" Margin="0,0,0,1" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="4" TextWrapping="Wrap" Text="Crew Id" FontFamily="Segoe UI" FontSize="25" VerticalAlignment="Center"/>
+
+            <TextBox 
+                x:Name="txtordid" 
+                Grid.Column="1"
+                TextWrapping="Wrap"
+                Height="45"
+                FontSize="25" 
+                IsEnabled="False"
+                Text="{Binding  Path=Id}"
+                Width="300"/>
+
+            <TextBox
+                x:Name="txtcustname" 
+                Grid.Column="1" 
+                Grid.Row="1"
+                TextWrapping="Wrap" 
+                Height="45"
+                FontSize="25"
+                Text="{Binding FirstName,Mode=TwoWay}" 
+                Width="300"/>
+
+            <TextBox 
+                x:Name="txtorditem" 
+                Grid.Column="1" 
+                Grid.Row="2" 
+                TextWrapping="Wrap" 
+                Height="45"
+                FontSize="25"
+                Text="{Binding LastName,Mode=TwoWay}" 
+                Width="300"/>
+
+            <TextBox 
+                x:Name="txtortqty"
+                Grid.Column="1" 
+                Grid.Row="3" 
+                TextWrapping="Wrap"
+                Height="45"
+                FontSize="25" 
+                Text="{Binding BirthDate,Mode=TwoWay,
+                Converter={StaticResource DateToStringConverter}}" 
+                Width="300"/>
+
+            <TextBox 
+                x:Name="txtunitprice"
+                Grid.Column="1" 
+                Grid.Row="4" 
+                TextWrapping="Wrap" 
+                Height="45"
+                FontSize="25" 
+                Text="{Binding CrewId,Mode=TwoWay}"
+                Width="300"/>
+
+
+        </Grid>
+        <ListView ItemsSource="{Binding Stewardesses}" SelectedItem="{Binding SelectedStewardess, Mode=TwoWay}"
+                  HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="587">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Column="1"
+                                    Grid.Row="0">
+                            <TextBlock Text="{Binding FirstName}"
+                                   Foreground="Black"
+                                   FontSize="25"
+                                   Padding="20,0,0,0"
+                                   Grid.Column="1"
+                                   Grid.Row="0"/>
+                            <TextBlock Text="{Binding LastName}"
+                                   Foreground="#444444"
+                                   FontSize="25"
+                                   Padding="20,0,0,0"/>
+
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Column="1"
+                                    Grid.Row="1">
+                            <TextBlock Text="{Binding BirthDate}"
+                                   Foreground="#444444"
+                                   FontSize="15"
+                                   Padding="6,0,0,0"/>
+                        </StackPanel>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel HorizontalAlignment="Right" Height="70" VerticalAlignment="Top" 
+   Width="749" Orientation="Horizontal" Margin="0,0,63,0">
+
+            <Button 
+                Name="btnnew" 
+                Content="New" 
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch" 
+                Width="180"
+                FontSize="25"
+                Command="{Binding Path=NewStewardess}"
+                CommandParameter="{Binding Stewardess}"/>
+
+            <Button 
+                Name="btnadd" 
+                Content="Add"
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch" 
+                Width="180"
+                FontSize="25"
+                Command="{Binding Path=AddStewardess}"
+                CommandParameter="{Binding Stewardess}"/>
+
+            <Button
+                Name="btnupdate" 
+                Content="Update" 
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Width="180"
+                FontSize="25" 
+                Command="{Binding UpdateStewardess}" 
+                CommandParameter="{Binding Stewardess}"/>
+
+            <Button 
+                Name="btndelete" 
+                Content="Delete" 
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" 
+                Width="180"
+                FontSize="25"
+                Command="{Binding DeleteStewardess}"
+                CommandParameter="{Binding Stewardess}"/>
+
+        </StackPanel>
+        <TextBlock 
+            HorizontalAlignment="Left"
+            Height="46" Margin="145,15,0,0"
+            TextWrapping="Wrap"
+            Text="List of Stewardesses" 
+            VerticalAlignment="Top" 
+            Width="395" 
+            FontFamily="Segoe UI"
+            FontSize="30"/>
+    </Grid>
+</Page>

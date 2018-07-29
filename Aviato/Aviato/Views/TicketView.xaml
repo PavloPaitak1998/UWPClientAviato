@@ -1,0 +1,167 @@
+﻿<Page
+    x:Class="Aviato.Views.TicketView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Aviato.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding TicketsVMInstance, Source={StaticResource Locator}}">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+         x:Name="MainGrid">
+        <Grid HorizontalAlignment="Right" Height="504" Margin="0,110,63,0" VerticalAlignment="Top" Width="680"
+            DataContext="{Binding Path=Ticket,Mode=TwoWay}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="96*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="101*"/>
+                <ColumnDefinition Width="109*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock TextWrapping="Wrap" Text="Ticket Id" FontFamily="Segor UI" FontSize="25" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="1" TextWrapping="Wrap" Text="Flight Number" FontFamily="Segoe UI" FontSize="25" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="2" TextWrapping="Wrap" Text="Flight Id" FontFamily="Segoe UI" FontSize="25" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="3" TextWrapping="Wrap" Text="Price" FontFamily="Segoe UI" FontSize="25" Margin="0,0,0,1" VerticalAlignment="Center"/>
+
+            <TextBox 
+                x:Name="txtordid" 
+                Grid.Column="1"
+                TextWrapping="Wrap"
+                Height="45"
+                FontSize="25" 
+                IsEnabled="False"
+                Text="{Binding  Path=Id}"
+                Width="300"/>
+
+            <TextBox
+                x:Name="txtcustname" 
+                Grid.Column="1" 
+                Grid.Row="1"
+                TextWrapping="Wrap" 
+                Height="45"
+                FontSize="25"
+                Text="{Binding FlightNumber,Mode=TwoWay}" 
+                Width="300"/>
+
+            <TextBox 
+                x:Name="txtorditem" 
+                Grid.Column="1" 
+                Grid.Row="2" 
+                TextWrapping="Wrap" 
+                Height="45"
+                FontSize="25"
+                Text="{Binding FlightId,Mode=TwoWay}" 
+                Width="300"/>
+
+            <TextBox 
+                x:Name="txtortqty"
+                Grid.Column="1" 
+                Grid.Row="3" 
+                TextWrapping="Wrap"
+                Height="45"
+                FontSize="25" 
+                Text="{Binding Price,Mode=TwoWay}" 
+                Width="300"/>
+
+        </Grid>
+        <ListView ItemsSource="{Binding Tickets}" SelectedItem="{Binding SelectedTicket, Mode=TwoWay}"
+                  HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="587">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="{Binding FlightNumber}"
+                                   Foreground="Black"
+                                   FontSize="25"
+                                   Padding="20,0,0,0"
+                                   Grid.Column="1"
+                                   Grid.Row="0"/>
+
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Column="1"
+                                    Grid.Row="1">
+                            <TextBlock Text="Price:"
+                                   Foreground="#888888"
+                                   FontSize="20"
+                                   Padding="20,0,0,0"/>
+                            <TextBlock Text="{Binding Price}"
+                                   Foreground="#444444"
+                                   FontSize="20"
+                                   Padding="20,0,0,0"/>
+                        </StackPanel>
+                        
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel HorizontalAlignment="Right" Height="70" VerticalAlignment="Top" 
+   Width="749" Orientation="Horizontal" Margin="0,0,63,0">
+
+            <Button 
+                Name="btnnew" 
+                Content="New" 
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch" 
+                Width="180"
+                FontSize="25"
+                Command="{Binding Path=NewTicket}"
+                CommandParameter="{Binding Ticket}"/>
+
+            <Button 
+                Name="btnadd" 
+                Content="Add"
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch" 
+                Width="180"
+                FontSize="25"
+                Command="{Binding Path=AddTicket}"
+                CommandParameter="{Binding Ticket}"/>
+
+            <Button
+                Name="btnupdate" 
+                Content="Update" 
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Width="180"
+                FontSize="25" 
+                Command="{Binding UpdateTicket}" 
+                CommandParameter="{Binding Ticket}"/>
+
+            <Button 
+                Name="btndelete" 
+                Content="Delete" 
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" 
+                Width="180"
+                FontSize="25"
+                Command="{Binding DeleteTicket}"
+                CommandParameter="{Binding Ticket}"/>
+
+        </StackPanel>
+        <TextBlock 
+            HorizontalAlignment="Left"
+            Height="46" Margin="145,15,0,0"
+            TextWrapping="Wrap"
+            Text="List of Tickets" 
+            VerticalAlignment="Top" 
+            Width="395" 
+            FontFamily="Segoe UI"
+            FontSize="30"/>
+    </Grid>
+</Page>
